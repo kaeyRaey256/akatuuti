@@ -3,300 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akatuuti Intelligence System</title>
+<title>Akatuuti Intelligence</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --teal:#0f766e;
-  --turq:#14b8a6;
-  --dark:#052e2b;
-  --light:#f3fbfa;
-  --gold:linear-gradient(135deg,#d4af37,#f5d76e);
+  --bg: #eef7f6;
+  --glass: rgba(255,255,255,0.6);
+  --border: rgba(255,255,255,0.3);
+  --text: #0f2f2c;
+  --accent: linear-gradient(135deg,#d4af37,#f5d76e);
 }
 
-body{
+* {
   margin:0;
-  font-family:system-ui;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* NAV */
+nav {
   display:flex;
-  background:var(--light);
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
 }
 
-/* SIDEBAR */
-.sidebar{
-  width:250px;
-  background:var(--dark);
-  color:white;
-  padding:20px;
-  height:100vh;
-  position:fixed;
+nav h1 {
+  font-weight:600;
+  letter-spacing:-0.5px;
 }
 
-.sidebar h2{margin-bottom:20px;}
-.sidebar button{
-  width:100%;
-  margin:8px 0;
-  padding:12px;
-  background:none;
-  border:none;
-  color:white;
-  cursor:pointer;
-  text-align:left;
-  border-radius:8px;
-}
-.sidebar button:hover{background:rgba(255,255,255,0.1);}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  padding:30px;
-  width:100%;
-}
-
-.section{display:none;}
-.active{display:block;}
-
-/* UI */
-.card{
-  background:white;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.05);
-  margin:10px 0;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-}
-
-.btn{
-  background:var(--gold);
-  border:none;
+nav button {
   padding:10px 18px;
-  border-radius:10px;
+  border:none;
+  border-radius:999px;
+  background:var(--accent);
   cursor:pointer;
 }
 
-input{
+/* HERO */
+.hero {
+  text-align:center;
+  padding:100px 20px;
+  max-width:800px;
+  margin:auto;
+}
+
+.hero h2 {
+  font-size:3rem;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+.hero p {
+  opacity:0.7;
+  margin-bottom:30px;
+}
+
+.cta {
+  padding:14px 28px;
+  border-radius:999px;
+  border:none;
+  background:var(--accent);
+  font-size:1rem;
+  cursor:pointer;
+}
+
+/* GLASS CARD */
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  transition:0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* GRID */
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  padding:40px;
+}
+
+/* SECTION */
+.section {
+  display:none;
+}
+
+.active {
+  display:block;
+}
+
+/* INPUT */
+input {
   width:100%;
-  padding:10px;
+  padding:12px;
+  border-radius:12px;
+  border:none;
   margin:10px 0;
 }
 
-/* MAP */
-.map{
+/* DASH */
+.stats {
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  padding:40px;
 }
 
-.region{
-  padding:20px;
-  background:white;
-  border-radius:12px;
-  text-align:center;
+.stat h3 {
+  opacity:0.6;
+  font-size:0.9rem;
 }
 
-.low{border:2px solid red;}
-.mid{border:2px solid orange;}
-.high{border:2px solid green;}
+.stat h2 {
+  margin-top:5px;
+}
 
+/* FADE */
+.fade {
+  animation: fade .5s ease;
+}
+
+@keyframes fade {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1;}
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .hero h2 {font-size:2rem;}
+}
 </style>
 </head>
 
 <body>
 
-<div class="sidebar">
-  <h2>Akatuuti</h2>
-  <button onclick="nav('home')">Home</button>
-  <button onclick="nav('opps')">Opportunities</button>
-  <button onclick="nav('profile')">Profile</button>
-  <button onclick="nav('dashboard')">Dashboard</button>
-  <button onclick="nav('database')">Database</button>
-  <button onclick="nav('insights')">Insights</button>
-  <button onclick="nav('admin')">Admin View</button>
-</div>
-
-<div class="main">
+<nav>
+  <h1>Akatuuti</h1>
+  <button onclick="navTo('profile')">Join</button>
+</nav>
 
 <!-- HOME -->
-<div id="home" class="section active">
-  <h1>Creative Economy Infrastructure</h1>
-  <p>This is not a website. This is infrastructure.</p>
+<div id="home" class="section active fade">
+  <div class="hero">
+    <h2>Creative Economy Intelligence</h2>
+    <p>Find opportunities. Get discovered. Track impact.</p>
+    <button class="cta" onclick="navTo('opps')">Explore Opportunities</button>
+  </div>
 </div>
 
-<!-- OPPORTUNITIES -->
-<div id="opps" class="section">
-  <h2>Opportunities</h2>
-  <div id="oppList" class="grid"></div>
+<!-- OPPS -->
+<div id="opps" class="section fade">
+  <div class="grid" id="oppList"></div>
 </div>
 
 <!-- PROFILE -->
-<div id="profile" class="section">
-  <h2>Create Profile</h2>
-  <input id="name" placeholder="Name">
-  <input id="discipline" placeholder="Discipline">
-  <input id="location" placeholder="Location">
-  <button class="btn" onclick="saveProfile()">Save</button>
+<div id="profile" class="section fade">
+  <div class="grid">
+    <div class="card">
+      <h2>Create Profile</h2>
+      <input id="name" placeholder="Name">
+      <input id="discipline" placeholder="Discipline">
+      <input id="location" placeholder="Location">
+      <button class="cta" onclick="saveProfile()">Save Profile</button>
+    </div>
+  </div>
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard" class="section">
-  <h2>Impact Dashboard</h2>
-  <div class="grid">
-    <div class="card">Impact Score <h2 id="impact"></h2></div>
-    <div class="card">Match Score <h2 id="match"></h2></div>
-    <div class="card">Funding <h2 id="funding"></h2></div>
+<div id="dashboard" class="section fade">
+  <div class="stats">
+    <div class="card stat">
+      <h3>Impact Score</h3>
+      <h2 id="impact">0</h2>
+    </div>
+    <div class="card stat">
+      <h3>Match Score</h3>
+      <h2 id="match">0%</h2>
+    </div>
+    <div class="card stat">
+      <h3>Funding</h3>
+      <h2 id="funding">$0</h2>
+    </div>
   </div>
-  <canvas id="growth"></canvas>
-</div>
-
-<!-- DATABASE -->
-<div id="database" class="section">
-  <h2>Creative Database</h2>
-  <input placeholder="Search..." oninput="searchDB(this.value)">
-  <div id="db" class="grid"></div>
-</div>
-
-<!-- INSIGHTS -->
-<div id="insights" class="section">
-  <h2>National Insights</h2>
-
-  <h3>Sector Distribution</h3>
-  <canvas id="sector"></canvas>
-
-  <h3>Regional Activity</h3>
-  <div class="map">
-    <div class="region high">Kampala (High)</div>
-    <div class="region mid">Central (Medium)</div>
-    <div class="region low">Northern (Low)</div>
-    <div class="region low">West Nile (Low)</div>
-    <div class="region mid">Eastern (Medium)</div>
-    <div class="region high">Western (High)</div>
-  </div>
-
-</div>
-
-<!-- ADMIN -->
-<div id="admin" class="section">
-  <h2>Policy Dashboard</h2>
-  <div class="card">
-    <h3>Funding Gap</h3>
-    <p>$2.3M needed in underserved regions</p>
-  </div>
-  <button class="btn" onclick="downloadReport()">Download Report</button>
-</div>
-
 </div>
 
 <script>
 
 // NAV
-function nav(id){
+function navTo(id){
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
 // DATA
-const creatives=[];
-const opps=[
- {title:"Music Fund",sector:"Music"},
- {title:"Film Grant",sector:"Film"},
- {title:"Art Residency",sector:"Art"}
+const opps = [
+  "Creative Grant",
+  "Film Residency",
+  "Music Fund"
 ];
 
 // LOAD OPPS
 opps.forEach(o=>{
-  oppList.innerHTML+=`
-  <div class="card">
-    <h3>${o.title}</h3>
-    <p>${o.sector}</p>
-    <button class="btn" onclick="nav('profile')">Apply</button>
-  </div>`;
+  oppList.innerHTML += `
+    <div class="card">
+      <h3>${o}</h3>
+      <button class="cta" onclick="navTo('profile')">Apply</button>
+    </div>
+  `;
 });
 
 // SAVE PROFILE
 function saveProfile(){
-  const c={
-    name:name.value,
-    discipline:discipline.value,
-    location:location.value,
-  };
+  impact.innerText = Math.floor(Math.random()*100);
+  match.innerText = Math.floor(Math.random()*40+60)+"%";
+  funding.innerText = "$"+Math.floor(Math.random()*20000);
 
-  creatives.push(c);
-
-  // AI MATCH LOGIC
-  const matchScore=Math.floor(Math.random()*40)+60;
-
-  impact.innerText=Math.floor(Math.random()*100);
-  match.innerText=matchScore+"%";
-  funding.innerText="$"+Math.floor(Math.random()*20000);
-
-  renderDB();
-  renderCharts();
-
-  nav('dashboard');
-}
-
-// DATABASE
-function renderDB(list=creatives){
-  db.innerHTML="";
-  list.forEach(c=>{
-    db.innerHTML+=`
-    <div class="card">
-      <h3>${c.name}</h3>
-      <p>${c.discipline}</p>
-      <small>${c.location}</small>
-    </div>`;
-  });
-}
-
-// SEARCH
-function searchDB(q){
-  renderDB(creatives.filter(c=>c.name.toLowerCase().includes(q.toLowerCase())));
-}
-
-// CHARTS
-function renderCharts(){
-
-new Chart(growth,{
-  type:"line",
-  data:{
-    labels:["Jan","Feb","Mar","Apr","May"],
-    datasets:[{data:[10,25,40,65,95]}]
-  }
-});
-
-new Chart(sector,{
-  type:"doughnut",
-  data:{
-    labels:["Music","Film","Art"],
-    datasets:[{data:[40,30,30]}]
-  }
-});
-}
-
-// REPORT DOWNLOAD
-function downloadReport(){
-  const content = `
-AKATUUTI IMPACT REPORT
-
-Total Creatives: ${creatives.length}
-Funding Gap: $2.3M
-Top Sector: Music
-Underserved Regions: Northern, West Nile
-
-This system enables data-driven investment decisions.
-  `;
-
-  const blob=new Blob([content],{type:"text/plain"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="Akatuuti_Report.txt";
-  a.click();
+  navTo('dashboard');
 }
 
 </script>
